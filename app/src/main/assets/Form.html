@@ -8,35 +8,53 @@
             text-align: center;
         }
     </style>
+    <script src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.qrcode.min.js"></script>
+    <script>
+    function create(){
+    var v1=document.getElementById("chname").value;
+    var v2=v1.toString();
+    jQuery(function(){
+    jQuery('#qrcode').qrcode(v2);
+		var i=$("form").serialize();
+		console.log(i);
+    })
+    jQuery('#create').attr("disabled","disabled");
+	event.preventDefault();
+    }
+    </script>
 </head>
 <body>
 <b>请填写资料</b>
+<form>
 <table align="center">
     <tr>
         <td>中文姓名</td>
-        <td><input type="text"/></td>
+        <td><input type="text" id="chname" name="chname" value="11111"/></td>
         <td>证件号码</td>
-        <td><input type="text"/></td>
+        <td><input type="text" id="idnum"/></td>
     </tr>
     <tr>
         <td>住宅地址</td>
-        <td><input type="text"/></td>
+        <td><input type="text" id="homeaddr"/></td>
         <td>单位地址</td>
-        <td><input type="text"/></td>
+        <td><input type="text" id="unitaddr"/></td>
     </tr>
     <tr>
         <td>直系亲属姓名</td>
-        <td><input type="text"/></td>
+        <td><input type="text" id="zname"/></td>
         <td>直系亲属电话</td>
-        <td><input type="text"/></td>
+        <td><input type="text" id="zphone"/></td>
     </tr>
     <tr>
         <td>E-mail地址</td>
-        <td><input type="text"/></td>
+        <td><input type="text" id="email"/></td>
         <td>信用卡及纸质账单邮寄地址</td>
-        <td><input type="text"/></td>
+        <td><input type="text" id="eaddr"/></td>
     </tr>
 </table>
-<input align="center" type="button" onclick="javascript:alert('此功能尚未开通！');" value="生成二维码"/>
+</form>
+<input align="center" type="button" id="create" onclick="create()" value="生成二维码"/>
+<div id="qrcode"></div>
 </body>
 </html>
