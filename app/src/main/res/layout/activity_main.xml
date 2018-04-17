@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffe1e0de" >
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="扫描二维码" />
+    <Button
+        android:id="@+id/bt_create"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="生成二维码"
+        android:layout_below="@+id/button1"
+        />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_create"
+        android:lines="2"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        />
+
+    <ImageView
+        android:id="@+id/qrcode_bitmap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/result"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>
