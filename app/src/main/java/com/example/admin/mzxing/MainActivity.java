@@ -21,6 +21,9 @@ import com.example.admin.mzxing.utils.ComUtil;
 import com.example.admin.mzxing.utils.LogUtils;
 import com.example.admin.mzxing.utils.ZXingUtils;
 
+import java.io.File;
+import java.io.IOException;
+
 public class MainActivity extends Activity implements OnClickListener {
     private final static int SCANNIN_GREQUEST_CODE = 1;
     /**
@@ -46,7 +49,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private Bundle bundle;
     private Intent intent;
     private String value;
-
+    private String qrPath="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,32 @@ public class MainActivity extends Activity implements OnClickListener {
         mImageView.setOnClickListener(this);
         mImageView.setClickable(false);
         mButton.setOnClickListener(this);
+        qrPath=this.getFilesDir()+File.separator+File.separator+Const.QRDIR;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        File file=new File(qrPath);
+        if(!file.exists()){
+            file.mkdir();
+        }
+        file=new File(qrPath+File.separator+"jquery.min.js");
+        try {
+        if(!file.exists()){
+                LogUtils.e("file is not find");
+                file.createNewFile();
+        }
+            boolean b = ComUtil.getInstance().writeToFile(file, "jquery.min.js", getApplicationContext());
+            LogUtils.i("write  b:"+b);
+            file=new File(qrPath+File.separator+"jquery.qrcode.min.js");
+        if(!file.exists()){
+            file.createNewFile();
+        }
+        ComUtil.getInstance().writeToFile(file,"jquery.qrcode.min.js",getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -11,19 +11,29 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.admin.mzxing.bean.Const;
+import com.example.admin.mzxing.utils.ComUtil;
 import com.example.admin.mzxing.utils.LogUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public class HtmlActivity extends AppCompatActivity {
 
     private String result;
     private ProgressBar pb;
     private TextView tvTitle;
-
+    private String url="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_html);
+        url=this.getFilesDir().getAbsolutePath()+File.separator+ Const.QRDIR+File.separator;
         initData();
         initView();
     }
@@ -34,9 +44,9 @@ public class HtmlActivity extends AppCompatActivity {
         tvTitle=findViewById(R.id.tv_result);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
-        webView.loadData(result,"text/html","UTF-8");
         webView.setWebViewClient(viewClient);
         webView.setWebChromeClient(chromeClient);
+        webView.loadDataWithBaseURL("file:///android_asset",result,"text/html","utf-8",null);
     }
     WebChromeClient chromeClient=new WebChromeClient(){
         @Override

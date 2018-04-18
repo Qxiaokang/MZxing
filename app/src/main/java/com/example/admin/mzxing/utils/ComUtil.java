@@ -3,11 +3,16 @@ package com.example.admin.mzxing.utils;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import com.example.admin.mzxing.bean.Const;
+
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 
 /**
  * Created by Admin on 2018/4/16.
@@ -51,5 +56,26 @@ public class ComUtil {
             }
         }
         return builder.toString();
+    }
+    public boolean writeToFile(File file, String fileName, Context context){
+        AssetManager assets = context.getAssets();
+        try {
+            InputStream open = assets.open(fileName);
+            StringBuilder builder=new StringBuilder();
+            BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(open));
+            String str="";
+            while ((str=bufferedReader.readLine())!=null){
+                builder.append(str);
+            }
+            FileOutputStream fileOutputStream=new FileOutputStream(file);
+            fileOutputStream.write(builder.toString().getBytes("utf-8"));
+            open.close();
+            bufferedReader.close();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }
